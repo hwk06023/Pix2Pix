@@ -9,6 +9,7 @@ from networks.DCGAN import DCGAN
 from utils import patch_utils
 from utils import logger
 import time
+import keras
 
 input_channels = 1
 output_channels = 1
@@ -59,7 +60,8 @@ for epoch in range(0, nb_epoch):
     print('Epoch {}'.format(epoch))
     batch_counter = 1
     start = time.time()
-    progbar = keras_generic_utils.Progbar(n_images_per_epoch)
+    #progbar = keras_generic_utils.Progbar(n_images_per_epoch)
+    progbar = keras.utils.Progbar(n_images_per_epoch)
 
     tng_gen = facades_generator(data_dir_name=data_path_tng, data_type='training', im_width=256, batch_size=batch_size)
     val_gen = facades_generator(data_dir_name=data_path_val, data_type='validation', im_width=256, batch_size=batch_size)
