@@ -49,8 +49,6 @@ discriminator_nn.trainable = True
 discriminator_nn.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
 batch_size = 1
-data_path_tng = 'DATA/train'
-data_path_val = 'DATA/val'
 nb_epoch = 100
 n_images_per_epoch = 400
 
@@ -62,8 +60,8 @@ for epoch in range(0, nb_epoch):
     start = time.time()
     progbar = keras.utils.Progbar(n_images_per_epoch)
 
-    tng_gen = facades_generator(data_dir_name=data_path_tng, data_type='training', im_width=256, batch_size=batch_size)
-    val_gen = facades_generator(data_dir_name=data_path_val, data_type='validation', im_width=256, batch_size=batch_size)
+    tng_gen = facades_generator(data_dir_name='DATA', data_type='train', im_width=256, batch_size=batch_size)
+    val_gen = facades_generator(data_dir_name='DATA', data_type='val', im_width=256, batch_size=batch_size)
 
     for mini_batch_i in range(0, n_images_per_epoch, batch_size):
 
