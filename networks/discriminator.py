@@ -1,5 +1,5 @@
 from keras.layers import Flatten, Dense, Input, Reshape, Lambda, Concatenate
-from keras.layers.convolutional import Convolution2D
+from keras.layers.convolutional import Convolution2D, Conv2D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Model
@@ -15,13 +15,15 @@ def PatchGanDiscriminator(output_img_dim, patch_dim, nb_patches):
     nb_conv = int(np.floor(np.log(output_img_dim[1]) / np.log(2)))
     filters_list = [num_filters_start * min(8, (2 ** i)) for i in range(nb_conv)]
 
-    disc_out = Convolution2D(nb_filter=64, nb_row=4, nb_col=4, border_mode='same', subsample=(stride, stride), name='disc_conv_1')(input_layer)
+    # disc_out = Convolution2D(nb_filter=64, nb_row=4, nb_col=4, border_mode='same', subsample=(stride, stride), name='disc_conv_1')(input_layer)
+    disc_out = Conv2D(name="disc_conv_1", kernel_size=(4, 4), filters=64, strides=(2, 2), padding="same")(input_layer)
     disc_out = LeakyReLU(alpha=0.2)(disc_out)
 
     for i, filter_size in enumerate(filters_list[1:]):
-        name = 'disc_conv_{}'.format(i+2)
+        name = 'disc_conv_{}'.format(i + 2)
 
-        disc_out = Convolution2D(nb_filter=filter_size, nb_row=4, nb_col=4, border_mode='same', subsample=(stride, stride), name=name)(disc_out)
+        # disc_out = Convolution2D(nb_filter=filter_size, nb_row=4, nb_col=4, border_mode='same', subsample=(stride, stride), name=name)(disc_out)
+        disc_out = Conv2D(name=name, kernel_size=(4, 4), filters=512, strides=(2, 2), padding="same")(disc_out)
         disc_out = BatchNormalization(axis=1)(disc_out)
         disc_out = LeakyReLU(alpha=0.2)(disc_out)
 
@@ -33,13 +35,13 @@ def PatchGanDiscriminator(output_img_dim, patch_dim, nb_patches):
 
 
 def generate_patch_gan_loss(last_disc_conv_layer, patch_dim, input_layer, nb_patches):
-
     list_input = [Input(shape=patch_dim, name="patch_gan_input_%s" % i) for i in range(nb_patches)]
 
     x_flat = Flatten()(last_disc_conv_layer)
     x = Dense(2, activation='softmax', name="disc_dense")(x_flat)
 
-    patch_gan = Model(input=[input_layer], output=[x, x_flat], name="patch_gan")
+    # patch_gan = Model(input=[input_layer], output=[x, x_flat], name="patch_gan")
+    patch_gan = Model(name="patch_gan", inputs=[input_layer], outputs=[x, x_flat])
 
     x = [patch_gan(patch)[0] for patch in list_input]
     x_mbd = [patch_gan(patch)[1] for patch in list_input]
@@ -57,7 +59,8 @@ def generate_patch_gan_loss(last_disc_conv_layer, patch_dim, input_layer, nb_pat
     num_kernels = 100
     dim_per_kernel = 5
 
-    M = Dense(num_kernels * dim_per_kernel, bias=False, activation=None)
+    # M = Dense(num_kernels * dim_per_kernel, bias=False, activation=None)
+    M = Dense(500, activation=None, use_bias=False)
     MBD = Lambda(minb_disc, output_shape=lambda_output)
 
     x_mbd = M(x_mbd)
@@ -67,7 +70,8 @@ def generate_patch_gan_loss(last_disc_conv_layer, patch_dim, input_layer, nb_pat
 
     x_out = Dense(2, activation="softmax", name="disc_output")(x)
 
-    discriminator = Model(input=list_input, output=[x_out], name='discriminator_nn')
+    # discriminator = Model(input=list_input, output=[x_out], name='discriminator_nn')
+    discriminator = Model(name="discriminator_nn", inputs=list_input, outputs=[x_out])
     return discriminator
 
 

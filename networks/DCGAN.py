@@ -22,5 +22,6 @@ def DCGAN(generator_model, discriminator_model, input_img_dim, patch_dim):
 
     dcgan_output = discriminator_model(list_gen_patch)
 
-    dc_gan = Model(input=[generator_input], output=[generated_image, dcgan_output], name="DCGAN")
+    # dc_gan = Model(input=[generator_input], output=[generated_image, dcgan_output], name="DCGAN")
+    dc_gan = Model(name="DCGAN", inputs=[generator_input], outputs=[generated_image, dcgan_output])
     return dc_gan

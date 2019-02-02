@@ -15,6 +15,7 @@ input_channels = 1
 output_channels = 1
 
 input_img_dim = (input_channels, 256, 256)
+#input_img_dim = (256, 256, input_channels)
 output_img_dim = (output_channels, 256, 256)
 
 sub_patch_dim = (256, 256)
@@ -106,6 +107,9 @@ for epoch in range(0, nb_epoch):
 
             X_full_val_batch, X_sketch_val_batch = next(patch_utils.gen_batch(X_val_original_imgs, X_val_decoded_imgs, batch_size))
             logger.plot_generated_batch(X_full_val_batch, X_sketch_val_batch, generator_nn, epoch, 'val', mini_batch_i)
+
+        print(mini_batch_i)
+
 
     print('Epoch %s/%s, Time: %s\n' % (epoch + 1, nb_epoch, time.time() - start))
 
