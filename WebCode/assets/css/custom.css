@@ -1,0 +1,74 @@
+#logo {
+    border-radius: 10%;
+}
+
+#first {
+	align-items: center;
+	text-align: center;
+	display: block;
+}
+
+#ModelTest {
+    display: flex;
+    width: 1020px;
+    margin: 0px auto;
+}
+
+#Option {
+    display: block;
+    margin-right: 20px;
+}
+
+#ModelInput {
+    display: inline;
+}
+
+#arrow {
+    margin: 10px;
+    /*display: inline-block;*/
+    position: relative;
+    height: 50px;
+    top: 100px;
+}
+
+#Process {
+	padding: 0px;
+	display: block;
+	background-color: gray;
+}
+
+#ModelOutput {
+    /*display: inline-block;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    /*position: relative;*/
+    /*right: 10px;*/
+}
+
+#BtnSet {
+    margin: 10px 0px 10px 0px;
+    display: block;
+}
+
+#canvas {
+    display: block;
+}
+
+#output {
+    display: block;
+}
+
+
+input[type="radio"]+label {
+    display: block;
+    margin: 0px;
+    height: 1em;
+}
+
+label {
+    /*background-image: url(radio.png) !important;*/
+}
+
+input[type="radio"] {
+	background-color: red !important;
+}
