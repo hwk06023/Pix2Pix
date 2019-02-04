@@ -11,9 +11,9 @@ def facades_generator(data_dir_name, data_type, im_width, batch_size=10):
 
     data_dir = data_dir_name + '/' + data_type
 
-    bucket_names_in_dir = os.listdir(data_dir)
+    bucket_names_in_dir = os.listdir(data_dir + '/images')
     bucket_names_in_dir = [f for f in bucket_names_in_dir if '.h5' in f]
-
+    print(bucket_names_in_dir)
     while True:
 
         for file_name in bucket_names_in_dir:

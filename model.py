@@ -15,18 +15,18 @@ input_channels = 1
 output_channels = 1
 
 input_img_dim = (input_channels, 256, 256)
-#input_img_dim = (256, 256, input_channels)
+# input_img_dim = (256, 256, input_channels)
 output_img_dim = (output_channels, 256, 256)
 
 sub_patch_dim = (256, 256)
 nb_patch_patches, patch_gan_dim = patch_utils.num_patches(output_img_dim=output_img_dim, sub_patch_dim=sub_patch_dim)
 
 generator_nn = UNETGenerator(input_img_dim=input_img_dim, num_output_channels=output_channels)
-generator_nn.summary()
+#generator_nn.summary()
 
 discriminator_nn = PatchGanDiscriminator(output_img_dim=output_img_dim,
                                          patch_dim=patch_gan_dim, nb_patches=nb_patch_patches)
-discriminator_nn.summary()
+#discriminator_nn.summary()
 
 discriminator_nn.trainable = False
 
@@ -40,7 +40,7 @@ dc_gan_nn = DCGAN(generator_model=generator_nn,
                   input_img_dim=input_img_dim,
                   patch_dim=sub_patch_dim)
 
-dc_gan_nn.summary()
+#dc_gan_nn.summary()
 
 loss = ['mae', 'binary_crossentropy']
 loss_weights = [1E2, 1]
@@ -51,7 +51,7 @@ discriminator_nn.compile(loss='binary_crossentropy', optimizer=opt_discriminator
 
 batch_size = 1
 nb_epoch = 100
-n_images_per_epoch = 400
+n_images_per_epoch = 1
 
 print('Training starting...')
 for epoch in range(0, nb_epoch):
@@ -61,8 +61,8 @@ for epoch in range(0, nb_epoch):
     start = time.time()
     progbar = keras.utils.Progbar(n_images_per_epoch)
 
-    tng_gen = facades_generator(data_dir_name='DATA', data_type='train', im_width=256, batch_size=batch_size)
-    val_gen = facades_generator(data_dir_name='DATA', data_type='val', im_width=256, batch_size=batch_size)
+    tng_gen = facades_generator(data_dir_name='DATA/facades_bw', data_type='training', im_width=256, batch_size=batch_size)
+    val_gen = facades_generator(data_dir_name='DATA/facades_bw', data_type='validation', im_width=256, batch_size=batch_size)
 
     for mini_batch_i in range(0, n_images_per_epoch, batch_size):
 
@@ -73,7 +73,7 @@ for epoch in range(0, nb_epoch):
                                                                       X_train_decoded_imgs,
                                                                       generator_nn,
                                                                       batch_counter,
-                                                                      patch_dim = sub_patch_dim)
+                                                                      patch_dim=sub_patch_dim)
 
         disc_loss = discriminator_nn.train_on_batch(X_discriminator, y_discriminator)
 
@@ -84,7 +84,7 @@ for epoch in range(0, nb_epoch):
         discriminator_nn.trainable = False
 
         gen_loss = dc_gan_nn.train_on_batch(X_gen, [X_gen_target, y_gen])
-
+        dc_gan_nn.load_weights
         discriminator_nn.trainable = True
 
         batch_counter += 1
@@ -103,13 +103,14 @@ for epoch in range(0, nb_epoch):
                                         ("Gen logloss", gen_log_loss)])
 
         if batch_counter % 2 == 0:
-            logger.plot_generated_batch(X_train_original_imgs, X_train_decoded_imgs, generator_nn, epoch, 'tng', mini_batch_i)
+            logger.plot_generated_batch(X_train_original_imgs, X_train_decoded_imgs, generator_nn, epoch, 'tng',
+                                        mini_batch_i)
 
-            X_full_val_batch, X_sketch_val_batch = next(patch_utils.gen_batch(X_val_original_imgs, X_val_decoded_imgs, batch_size))
+            X_full_val_batch, X_sketch_val_batch = next(
+                patch_utils.gen_batch(X_val_original_imgs, X_val_decoded_imgs, batch_size))
             logger.plot_generated_batch(X_full_val_batch, X_sketch_val_batch, generator_nn, epoch, 'val', mini_batch_i)
 
         print(mini_batch_i)
-
 
     print('Epoch %s/%s, Time: %s\n' % (epoch + 1, nb_epoch, time.time() - start))
 

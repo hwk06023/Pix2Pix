@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	<link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
 </head>
 
 <body class="is-preload" id="body">
@@ -39,23 +39,21 @@
             <section id="first" class="main special">
                 <p>여기다 그림그리면 되는거임~</p>
                 <div id="ModelTest">
-
-					<div id="Option">
-						<input type="radio" name="color" value="background" id="background"><label for="background">background</label>
-						<input type="radio" name="color" value="wall" id="wall"><label for="wall">wall</label>
-						<input type="radio" name="color" value="door" id="door"><label for="door">door</label>
-						<input type="radio" name="color" value="window" id="window" checked="true"><label for="window">window</label>
-						<input type="radio" name="color" value="window_sill" id="window_sill"><label for="window_sill">window sill</label>
-						<input type="radio" name="color" value="window_head" id="window_head"><label for="window_head">window head</label>
-						<input type="radio" name="color" value="shutter" id="shutter"><label for="shutter">shutter</label>
-						<input type="radio" name="color" value="balcony" id="balcony"><label for="balcony">balcony</label>
-						<input type="radio" name="color" value="trim" id="trim"><label for="trim">trim</label>
-						<input type="radio" name="color" value="cornice" id="cornice"><label for="cornice">cornice</label>
-						<input type="radio" name="color" value="column" id="column"><label for="column">column</label>
-						<input type="radio" name="color" value="entrance" id="entrance"><label for="entrance">entrance</label>
-						<!-- <button type="btn" onclick="Print()">Print</button> -->
-					</div>
-
+                    <div id="Option">
+                        <input type="radio" name="color" value="background" id="background"><label for="background">background</label>
+                        <input type="radio" name="color" value="wall" id="wall"><label for="wall">wall</label>
+                        <input type="radio" name="color" value="door" id="door"><label for="door">door</label>
+                        <input type="radio" name="color" value="window" id="window" checked="true"><label for="window">window</label>
+                        <input type="radio" name="color" value="window_sill" id="window_sill"><label for="window_sill">window sill</label>
+                        <input type="radio" name="color" value="window_head" id="window_head"><label for="window_head">window head</label>
+                        <input type="radio" name="color" value="shutter" id="shutter"><label for="shutter">shutter</label>
+                        <input type="radio" name="color" value="balcony" id="balcony"><label for="balcony">balcony</label>
+                        <input type="radio" name="color" value="trim" id="trim"><label for="trim">trim</label>
+                        <input type="radio" name="color" value="cornice" id="cornice"><label for="cornice">cornice</label>
+                        <input type="radio" name="color" value="column" id="column"><label for="column">column</label>
+                        <input type="radio" name="color" value="entrance" id="entrance"><label for="entrance">entrance</label>
+                        <!-- <button type="btn" onclick="Print()">Print</button> -->
+                    </div>
                     <div id="ModelInput">
                         <canvas id="canvas" width="256" height="256" style="border: 1px solid black;"></canvas>
                         <div id="BtnSet">
@@ -63,19 +61,16 @@
                             <button type="btn" id="Undo" onclick="Redo('btn')">Redo</button>
                         </div>
                     </div>
-                    
                     <div id="arrow">
-                    	<img src="images/arrow.jpg" width="100px" height="50px">
-                    	<button type="btn" class="primary" id="Process" onclick="">Process</button>
+                        <img src="images/arrow.jpg" width="100px" height="50px">
+                        <button type="btn" class="primary" id="Process" onclick="">Process</button>
                     </div>
-                    
                     <div id="ModelOutput">
                         <canvas id="output" width="256" height="256" style="border: 1px solid black;"></canvas>
                         <div id="BtnSet">
                             <button type="btn" id="Save" onclick="">Save</button>
                         </div>
                     </div>
-
                 </div>
             </section>
         </div>
