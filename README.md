@@ -9,9 +9,11 @@ Pix2Pix를 활용하여 건물의 앞면을 그리면 실제 사진처럼 변환
 
 ## Web
 
+<img src=https://github.com/hwk06023/Pix2Pix/blob/master/images/ex_1.png width=400 heigth=100>
 
+<img src=https://github.com/hwk06023/Pix2Pix/blob/master/images/ex_2.png width=400 heigth=100>
 
-
+<img src=https://github.com/hwk06023/Pix2Pix/blob/master/images/ex_3.png width=400 heigth=100>
 
 
 
