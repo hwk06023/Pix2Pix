@@ -1,6 +1,6 @@
 # Pix2Pix
 
-2019 선린인터넷 고등학교 이모션 시연회 때 발표한 프로젝트입니다.
+2019 고등학교 이모션 시연회 때 발표한 프로젝트입니다.
 
 <img src=https://github.com/hwk06023/Pix2Pix/blob/master/images/main.png width=500 heigth=500>
 
